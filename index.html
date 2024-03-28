@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Google Sheets Data Viewer</title>
+  <style>
+    /* Style for dark mode */
+    body {
+      margin: 0;
+      padding: 10px; /* Add some padding for content */
+      font-family: sans-serif;
+      color: rgb(161, 255, 161); /* Set text color to 161, 255, 161 */
+      background-color: #222; /* Black for background */
+      display: flex;
+      flex-direction: column; /* Stack elements vertically */
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh; /* Set minimum height for full viewport */
+    }
+
+    h1 {
+      font-weight: bold; /* Make the heading bold */
+      font-size: 3em; /* Increase font size for better visibility */
+      text-align: center; /* Center the text */
+      margin-bottom: 2em; /* Add some space between heading and data */
+    }
+
+    #data {
+      font-weight: bold; /* Make the text bold */
+      font-size: 2em; /* Adjust font size as needed */
+      text-align: center; /* Center the text */
+    }
+
+    /* Style for reload button with same color as text */
+    #reload-button {
+      position: absolute; /* Position the button absolutely */
+      top: 10px; /* Set top position from the edge */
+      right: 10px; /* Set right position from the edge */
+      background-color: rgb(161, 255, 161); /* Set button color to 161, 255, 161 */
+      color: black; /* Set button text color to black for better contrast */
+      padding: 10px 20px; /* Add some padding */
+      text-align: center; /* Center the text */
+      text-decoration: none; /* Remove underline */
+      display: inline-block; /* Display as inline block */
+      border: none; /* Remove border */
+      cursor: pointer; /* Set cursor to pointer on hover */
+    }
+  </style>
+</head>
+<body>
+  <a href="#" id="reload-button">Reload</a>
+
+  <h1><b>Number of Pledged Votes</b></h1>
+  <div id="data"></div>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1145015026326148"
+    crossorigin="anonymous"></script>
+  <script>
+    // Function to reload data on button click
+    function reloadData() {
+      fetch('https://script.google.com/macros/s/AKfycbw7XPQtxcNnzVhK-Gbqvd7mP4XF8o_sW_1z8q1tTJMEy28bxARf1hTXj5wS_cUBR-Wz/exec')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('data').innerHTML = `<b>${data.number1}</b>`;
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    }
+
+    // Attach click event listener to the button
+    document.getElementById('reload-button').addEventListener('click', reloadData);
+
+    // Initial data fetch on page load
+    reloadData();
+  </script>
+</body>
+</html>
